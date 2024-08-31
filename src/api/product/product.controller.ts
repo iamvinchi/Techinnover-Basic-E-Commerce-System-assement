@@ -20,7 +20,6 @@ export class ProductController {
   }
 
   @Get('approved')
-  @UseAuthGuard(Role.User, Role.Admin)
   findApprovedProducts(@Query() pageOptionsDto: PageOptionsDto){
     return this.productService.findApprovedProducts(pageOptionsDto)
   }

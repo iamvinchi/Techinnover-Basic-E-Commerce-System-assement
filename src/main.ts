@@ -37,7 +37,6 @@ async function bootstrap() {
     .setTitle('Basic E-Commerce Assessment API')
     .setDescription('Basic E-Commerce Assessment API documentation')
     .setVersion('1.0')
-    .setBasePath(process.env.BASE_PATH)
     .addBearerAuth()
     .build(),
     {
