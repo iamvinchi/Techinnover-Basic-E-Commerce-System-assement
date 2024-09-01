@@ -5,88 +5,88 @@ import { error, success } from 'src/utils/response';
 import { Authutil } from 'src/utils/auth.helper';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm'; 
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-    private readonly authutil:Authutil
-  ) {}
+    private readonly authutil: Authutil
+  ) { }
 
   async create(createUserDto: CreateUserDto) {
 
     try {
-      const {email,password,confirmPassword} = createUserDto
+      const { email, password, confirmPassword } = createUserDto
 
-      const user = await this.userRepository.findOne({where: {email}})
-      if(user){
+      const user = await this.userRepository.findOne({ where: { email } })
+      if (user) {
         return error(
           'Register',
           `An account with provided email already exist.`,
         );
       }
-  
-      if(password !== confirmPassword){
+
+      if (password !== confirmPassword) {
         return error(
           'Register',
           `Password do not match!`,
         );
       }
-  
-        const hashedPassword = await this.authutil.hash(password)
-    
-        delete createUserDto.confirmPassword
-          
-        const newUser =  await this.userRepository.save({...createUserDto, password: hashedPassword})
-        delete newUser.password
-          return success(
-            {
-              data: newUser,
-            },
-            'Register',
-            'Sign up successful.',
-          );
 
-       
+      const hashedPassword = await this.authutil.hash(password)
+
+      delete createUserDto.confirmPassword
+
+      const newUser = await this.userRepository.save({ ...createUserDto, password: hashedPassword })
+      delete newUser.password
+      return success(
+        {
+          data: newUser,
+        },
+        'Register',
+        'Sign up successful.',
+      );
+
+
     } catch (err) {
       return error(
         'Register',
         `${err}`,
       );
     }
-   
+
   }
 
-  async login(loginDto: CreateUserLoginDto){
+  async login(loginDto: CreateUserLoginDto) {
     try {
-    const {email, password} = loginDto
+      const { email, password } = loginDto
 
-    const user = await this.userRepository.findOne({
-      where: {email}
-    })
-    
-    const isValidPassword = await this.authutil.compare(password, user.password)
+      const user = await this.userRepository.findOne({
+        where: { email }
+      })
 
-    if(!user || !isValidPassword){
-      return error(
-        'Login',
-        `Invalid email or password`,
-      );
-    }
+      const isValidPassword = await this.authutil.compare(password, user.password)
 
-    if(user?.status === 'banned'){
-      return error(
-        'Login',
-        `Account restricted! please contact admin.`,
-      );
-    }
+      if (!user || !isValidPassword) {
+        return error(
+          'Login',
+          `Invalid email or password`,
+        );
+      }
 
-    const token  = await this.authutil.getToken(user)
+      if (user?.status === 'banned') {
+        return error(
+          'Login',
+          `Account restricted! please contact admin.`,
+        );
+      }
 
-      return success( 
+      const token = await this.authutil.getToken(user)
+
+      return success(
         {
-          data:{user,token}
+          data: { user, token }
         },
         'Login',
         'User successfully logged in',
@@ -101,15 +101,15 @@ export class UserService {
 
   async findAll() {
     try {
-      const users =  await this.userRepository.find({where: {role: "user"}})
+      const users = await this.userRepository.find({ where: { role: "user" } })
 
-          return success(
-            {
-              data: users,
-            },
-            'Get all users',
-            'Users retrieved successfully.',
-          );
+      return success(
+        {
+          data: users,
+        },
+        'Get all users',
+        'Users retrieved successfully.',
+      );
     } catch (err) {
       return error(
         'Get all users',
@@ -120,27 +120,28 @@ export class UserService {
 
   async findOne(id: number) {
     try {
-      const user =  await this.userRepository.findOneBy({id})
+      const user = await this.userRepository.findOneBy({ id })
 
-          return success(
-            {
-              data: user,
-            },
-            'Get a user',
-            'User retrieved successfully.',
-          );
+      return success(
+        {
+          data: user,
+        },
+        'Get a user',
+        'User retrieved successfully.',
+      );
     } catch (err) {
       return error(
         'Get a user',
         `${err}`,
       );
-    }  }
+    }
+  }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     try {
-      const updated = await this.userRepository.update(id, {...updateUserDto})
+      const updated = await this.userRepository.update(id, { ...updateUserDto })
 
-      if(updated){
+      if (updated) {
         return success(
           {
             data: updated
@@ -148,31 +149,32 @@ export class UserService {
           'Update user detail',
           "User details updated successfully"
         )
-      }else{
+      } else {
         return error(
           'Update user detail',
           `Error updating user details.`
         )
       }
-      
+
     } catch (err) {
       return error(
         'Update user detail',
         `Error occured: ${err}`
       )
-    }  }
+    }
+  }
 
   async banAndUnbanUser(id: number) {
     try {
-      const user = await this.userRepository.findOneBy({id})
+      const user = await this.userRepository.findOneBy({ id })
       let updated
-      if(user?.status === "active"){
-        updated = await this.userRepository.update(id, {status: 'banned'})
-      }else{
-        updated = await this.userRepository.update(id, {status:'active'})
+      if (user?.status === "active") {
+        updated = await this.userRepository.update(id, { status: 'banned' })
+      } else {
+        updated = await this.userRepository.update(id, { status: 'active' })
       }
 
-      if(updated){
+      if (updated) {
         return success(
           {
             data: updated
@@ -180,13 +182,13 @@ export class UserService {
           'Update user status',
           "User status updated successfully"
         )
-      }else{
+      } else {
         return error(
           'Update user status',
           `Error updating user status.`
         )
       }
-      
+
     } catch (err) {
       return error(
         'Update user status',
@@ -199,18 +201,19 @@ export class UserService {
     try {
       const deleted = await this.userRepository.delete(id)
 
-        return success(
-          {
-            data: deleted
-          },
-          'Delete user',
-          "User deleted successfully"
-        )
-      
+      return success(
+        {
+          data: deleted
+        },
+        'Delete user',
+        "User deleted successfully"
+      )
+
     } catch (err) {
       return error(
         'Delete user',
         `Error occured: ${err}`
       )
-    }  }
+    }
+  }
 }

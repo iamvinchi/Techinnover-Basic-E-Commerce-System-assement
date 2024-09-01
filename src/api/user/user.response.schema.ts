@@ -1,144 +1,144 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-  export class Message{
-    @ApiProperty({ example: 'successful' })
-    message: string;
+export class Message {
+  @ApiProperty({ example: 'successful' })
+  message: string;
 
-    @ApiProperty({ example: true })
-    status: boolean;
-  }
+  @ApiProperty({ example: true })
+  status: boolean;
+}
 
-  export class UserDto {
-    @ApiProperty({ example: 1 })
-    id: number;
-  
-    @ApiProperty({ example: 'John Doe' })
-    name: string;
-  
-    @ApiProperty({ example: 'john.doe@example.com' })
-    email: string;
-  }
+export class UserDto {
+  @ApiProperty({ example: 1 })
+  id: number;
 
-  export class AllUserData{
-    @ApiProperty({ type: [UserDto] })
-    data: UserDto[];
-  }
+  @ApiProperty({ example: 'John Doe' })
+  name: string;
 
-  export class UserData{
-    @ApiProperty({ type: UserDto })
-    data: UserDto;
-  }
+  @ApiProperty({ example: 'john.doe@example.com' })
+  email: string;
+}
 
-  export class LoginUserData{
-    @ApiProperty({ type: UserDto })
-    data: UserDto;
+export class AllUserData {
+  @ApiProperty({ type: [UserDto] })
+  data: UserDto[];
+}
 
-    @ApiProperty({ example:"some-generated-token" })
-    token: string;
-  }
+export class UserData {
+  @ApiProperty({ type: UserDto })
+  data: UserDto;
+}
 
-  export class UpdateInfo{
-    @ApiProperty({ example: [] })
-    generatedMaps: any[]
-    @ApiProperty({ example:[] })
-    raw: any[]
-    @ApiProperty({ example:1 })
-    affected: 1
-    
-  }
+export class LoginUserData {
+  @ApiProperty({ type: UserDto })
+  data: UserDto;
 
-  export class UpdateData{
-    @ApiProperty({ type:UpdateInfo })
-    data:UpdateInfo
-    
-  }
-  
-  export class FindAllResponseDto {
+  @ApiProperty({ example: "some-generated-token" })
+  token: string;
+}
 
-    @ApiProperty({ example: 'Get all user' })
-    title: string;
+export class UpdateInfo {
+  @ApiProperty({ example: [] })
+  generatedMaps: any[]
+  @ApiProperty({ example: [] })
+  raw: any[]
+  @ApiProperty({ example: 1 })
+  affected: 1
 
-    @ApiProperty({ type: Message })
-    message:Message
+}
 
-    @ApiProperty({ example: 200 })
-    statusCode: number;
+export class UpdateData {
+  @ApiProperty({ type: UpdateInfo })
+  data: UpdateInfo
 
-    @ApiProperty({ type: AllUserData })
-    data: AllUserData;
-  }
+}
 
-  export class FindUserDetailResponseDto {
+export class FindAllResponseDto {
 
-    @ApiProperty({ example: 'Get user by id' })
-    title: string;
+  @ApiProperty({ example: 'Get all user' })
+  title: string;
 
-    @ApiProperty({ type: Message })
-    message:Message
+  @ApiProperty({ type: Message })
+  message: Message
 
-    @ApiProperty({ example: 200 })
-    statusCode: number;
+  @ApiProperty({ example: 200 })
+  statusCode: number;
 
-    @ApiProperty({ type: UserData })
-    data: UserData;
-  }
+  @ApiProperty({ type: AllUserData })
+  data: AllUserData;
+}
 
-  export class LoginResponseDto {
+export class FindUserDetailResponseDto {
 
-    @ApiProperty({ example: 'Login' })
-    title: string;
+  @ApiProperty({ example: 'Get user by id' })
+  title: string;
 
-    @ApiProperty({ type: Message })
-    message:Message
+  @ApiProperty({ type: Message })
+  message: Message
 
-    @ApiProperty({ example: 200 })
-    statusCode: number;
+  @ApiProperty({ example: 200 })
+  statusCode: number;
 
-    @ApiProperty({ type:LoginUserData })
-    data: LoginUserData;
-  }
+  @ApiProperty({ type: UserData })
+  data: UserData;
+}
 
-  export class SignUpResponseDto {
+export class LoginResponseDto {
 
-    @ApiProperty({ example: 'Sign up' })
-    title: string;
+  @ApiProperty({ example: 'Login' })
+  title: string;
 
-    @ApiProperty({ type: Message })
-    message:Message
+  @ApiProperty({ type: Message })
+  message: Message
 
-    @ApiProperty({ example: 200 })
-    statusCode: number;
+  @ApiProperty({ example: 200 })
+  statusCode: number;
 
-    @ApiProperty({ type: UserData })
-    data: UserData;
-  }
+  @ApiProperty({ type: LoginUserData })
+  data: LoginUserData;
+}
 
-  export class UpdateResponseDto {
+export class SignUpResponseDto {
 
-    @ApiProperty({ example: 'Update' })
-    title: string;
+  @ApiProperty({ example: 'Sign up' })
+  title: string;
 
-    @ApiProperty({ type: Message })
-    message:Message
+  @ApiProperty({ type: Message })
+  message: Message
 
-    @ApiProperty({ example: 200 })
-    statusCode: number;
+  @ApiProperty({ example: 200 })
+  statusCode: number;
 
-    @ApiProperty({ type: UpdateData })
-    data: UpdateData;
-  }
+  @ApiProperty({ type: UserData })
+  data: UserData;
+}
 
-  export class DeleteResponseDto {
+export class UpdateResponseDto {
 
-    @ApiProperty({ example: 'Delete' })
-    title: string;
+  @ApiProperty({ example: 'Update' })
+  title: string;
 
-    @ApiProperty({ type: Message })
-    message:Message
+  @ApiProperty({ type: Message })
+  message: Message
 
-    @ApiProperty({ example: 200 })
-    statusCode: number;
+  @ApiProperty({ example: 200 })
+  statusCode: number;
 
-    @ApiProperty({ type: UpdateData })
-    data: UpdateData;
-  }
+  @ApiProperty({ type: UpdateData })
+  data: UpdateData;
+}
+
+export class DeleteResponseDto {
+
+  @ApiProperty({ example: 'Delete' })
+  title: string;
+
+  @ApiProperty({ type: Message })
+  message: Message
+
+  @ApiProperty({ example: 200 })
+  statusCode: number;
+
+  @ApiProperty({ type: UpdateData })
+  data: UpdateData;
+}

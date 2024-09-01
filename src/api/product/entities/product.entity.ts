@@ -3,32 +3,32 @@ import { Column, CreateDateColumn, JoinColumn, Entity, ManyToOne, PrimaryGenerat
 
 @Entity('product')
 export class Product {
-  @PrimaryGeneratedColumn()
-  id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @Column({ type: 'varchar', enum:['pending', 'approved', 'rejected'], default:"pending" })
-  status: string;
-   
-  @Column({ type: 'varchar' })
-  name: string;
+    @Column({ type: 'varchar', enum: ['pending', 'approved', 'rejected'], default: "pending" })
+    status: string;
 
-  @Column({ type: 'varchar', })
-  price: string;
+    @Column({ type: 'varchar' })
+    name: string;
 
-  @Column({ type: 'varchar' })
-  description: string;
+    @Column({ type: 'varchar', })
+    price: string;
 
-  @Column({ type: 'varchar' })
-  quantity: string;
+    @Column({ type: 'varchar' })
+    description: string;
 
-  @ManyToOne(() => User, user => user.products, { nullable:true, onDelete:"CASCADE" })
-  @JoinColumn()
-  user: User;
+    @Column({ type: 'varchar' })
+    quantity: string;
 
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
+    @ManyToOne(() => User, user => user.products, { nullable: true, onDelete: "CASCADE" })
+    @JoinColumn()
+    user: User;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
-  updated_at: Date;
+    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    created_at: Date;
+
+    @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+    updated_at: Date;
 
 }

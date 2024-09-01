@@ -13,6 +13,6 @@ export function UseAuthGuard(...roles: Role[]) {
     Roles(...roles),
     UseGuards(JwtAuthGuard, RolesGuard),
     ApiBearerAuth(),
-    ApiUnauthorizedResponse({ description: 'Unauthorized' }), 
+    ApiUnauthorizedResponse({ description: 'Unauthorized' }),
   );
 }

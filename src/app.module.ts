@@ -18,7 +18,7 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
       global: true,
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'),
-        signOptions: { 
+        signOptions: {
           expiresIn: configService.get<string>('JWT_EXPIRY'),
         },
       }),
@@ -27,10 +27,10 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
     DBModule,
     ProductModule,
     UserModule,
-   
+
   ],
   controllers: [AppController],
-  providers: [AppService,RolesGuard
+  providers: [AppService, RolesGuard
   ],
 })
-export class AppModule {}
+export class AppModule { }
