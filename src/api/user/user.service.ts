@@ -101,7 +101,7 @@ export class UserService {
 
   async findAll() {
     try {
-      const users =  await this.userRepository.find({})
+      const users =  await this.userRepository.find({where: {role: "user"}})
 
           return success(
             {
