@@ -31,7 +31,7 @@ export class ProductService {
     }
 
     const newProduct = await this.productRepository.save({
-      name:name.trim(), price, description,quantity,user
+      name:name.trim(), price, description, quantity, user
     })
 
     return success(

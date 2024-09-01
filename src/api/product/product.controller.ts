@@ -14,7 +14,7 @@ import { DeleteResponseDto, UpdateResponseDto } from '../user/user.response.sche
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @Post()
+  @Post('create')
   @UseAuthGuard(Role.User)
   @ApiOperation({ summary: 'This method enables a user to create a new product.' })
   @ApiResponse({ status: 200, description: 'Create product response', type:CreateProductResponseDto })
@@ -30,7 +30,7 @@ export class ProductController {
     return this.productService.findApprovedProducts(pageOptionsDto)
   }
   
-  @Get('user/me')
+  @Get('user/all')
   @UseAuthGuard(Role.User)
   @ApiOperation({ summary: 'This method gets all products belonging to a user and it can only be call by a user and forbidden for admin.' })
   @ApiResponse({ status: 200, description: 'Get products response', type:GetUserProductResponseDto })
@@ -39,14 +39,14 @@ export class ProductController {
     return this.productService.findUserProducts(+userId, pageOptionsDto)
   }
 
-  @Get()
+  @Get('all')
   @UseAuthGuard(Role.Admin)
   @ApiOperation({ summary: 'This lists all products and can only be accessed by admin users.' })
   @ApiResponse({ status: 200, description: 'Get products response', type:GetUserProductResponseDto })
   findAll(@Query() pageOptionsDto: PageOptionsDto) {
     return this.productService.findAll(pageOptionsDto);
   }
-  GetProductDetailResponseDto
+  
   @Get(':id')
   @ApiOperation({ summary: 'This method gets the detail of a particular product by id. It is not a protected route.' })
   @ApiResponse({ status: 200, description: 'Get user products response', type:GetProductDetailResponseDto })

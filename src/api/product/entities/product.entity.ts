@@ -1,5 +1,5 @@
 import { User } from 'src/api/user/entities/user.entity';
-import { Column, CreateDateColumn, JoinColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, JoinColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('product')
 export class Product {
@@ -21,7 +21,7 @@ export class Product {
   @Column({ type: 'varchar' })
   quantity: string;
 
-  @OneToOne(() => User, user => user.products, { nullable:true, onDelete:"CASCADE" })
+  @ManyToOne(() => User, user => user.products, { nullable:true, onDelete:"CASCADE" })
   @JoinColumn()
   user: User;
 
